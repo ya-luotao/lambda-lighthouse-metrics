@@ -26,14 +26,55 @@ functions:
     timeout: 30
     reservedConcurrency: 3
 
-# you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"
+resources:
+  Resources:
+    pagesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: '${self:service.name}-${self:provider.stage}-pages'
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: pageId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: pageId
+            KeyType: HASH
+    jobsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: '${self:service.name}-${self:provider.stage}-jobs'
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: jobId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: jobId
+            KeyType: HASH
+    runsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: '${self:service.name}-${self:provider.stage}-runs'
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: pageId
+            AttributeType: S
+          - AttributeName: jobId
+            AttributeType: S
+          - AttributeName: runId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: runId
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: pageIdIndex
+            KeySchema:
+              - AttributeName: pageId
+                KeyType: HASH
+            Projection:
+              ProjectionType: KEYS_ONLY
+          - IndexName: jobIdIndex
+            KeySchema:
+              - AttributeName: jobId
+                KeyType: HASH
+            Projection:
+              ProjectionType: KEYS_ONLY
