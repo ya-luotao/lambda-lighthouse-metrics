@@ -32,6 +32,11 @@ functions:
     handler: handler.postProcessor
     memorySize: 128
     reservedConcurrency: 10
+  worker:
+    handler: handler.worker
+    memorySize: 2048
+    timeout: 30
+    reservedConcurrency: 3
 
 resources:
   Resources:

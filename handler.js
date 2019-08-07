@@ -2,6 +2,7 @@
 
 const initialize     = require("./src/initialize.js")
 const postProcessor  = require("./src/post-processor.js")
+const worker         = require("./src/worker.js")
 
 module.exports.hello = async event => {
   return {
@@ -22,3 +23,4 @@ module.exports.hello = async event => {
 
 module.exports.initialize    = initialize
 module.exports.postProcessor = postProcessor
+module.exports.worker        = worker
