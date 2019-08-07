@@ -1,6 +1,9 @@
 {
   "dependencies": {
     "aws-sdk": "^2.504.0",
+    "chrome-launcher": "^0.11.2",
+    "lighthouse": "^5.2.0",
+    "lighthouse-logger": "^1.2.0",
     "uuid": "^3.3.2"
   }
 }
