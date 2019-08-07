@@ -94,3 +94,19 @@ resources:
                 KeyType: HASH
             Projection:
               ProjectionType: KEYS_ONLY
+    snsPagesToTestTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        DisplayName: '${self:service.name}-${self:provider.stage}-pagesToTest'
+        Subscription:
+          - Endpoint:
+              'Fn::GetAtt': [WorkerLambdaFunction, Arn]
+            Protocol: lambda
+    snsPagesToTestDlqTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        DisplayName: '${self:service.name}-${self:provider.stage}-pagesToTestDlq'
+        Subscription:
+          - Endpoint:
+              'Fn::GetAtt': [WorkerLambdaFunction, Arn]
+            Protocol: lambda
