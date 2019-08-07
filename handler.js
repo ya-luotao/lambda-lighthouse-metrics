@@ -1,6 +1,7 @@
 'use strict';
 
-const initialize = require("./src/initialize.js")
+const initialize     = require("./src/initialize.js")
+const postProcessor  = require("./src/post-processor.js")
 
 module.exports.hello = async event => {
   return {
@@ -19,4 +20,5 @@ module.exports.hello = async event => {
   // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
 };
 
-module.exports.initialize = initialize
+module.exports.initialize    = initialize
+module.exports.postProcessor = postProcessor
