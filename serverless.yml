@@ -18,6 +18,10 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource: 'arn:aws:dynamodb:${self:provider.region}:*:*'
+  environment:
+    PAGES_TABLE_NAME: '${self:service.name}-${self:provider.stage}-pages'
+    JOBS_TABLE_NAME:  '${self:service.name}-${self:provider.stage}-jobs'
+    RUNS_TABLE_NAME:  '${self:service.name}-${self:provider.stage}-runs'
 
 package:
   individualy: true
