@@ -19,6 +19,9 @@ provider:
         - dynamodb:DeleteItem
       Resource: 'arn:aws:dynamodb:${self:provider.region}:*:*'
 
+package:
+  individualy: true
+
 functions:
   initialize:
     handler: handler.initialize
