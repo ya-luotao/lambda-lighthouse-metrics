@@ -110,3 +110,10 @@ resources:
           - Endpoint:
               'Fn::GetAtt': [WorkerLambdaFunction, Arn]
             Protocol: lambda
+    snsPagesToTestTopicLambdaPermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName:
+          'Fn::GetAtt': [WorkerLambdaFunction, Arn]
+        Principal: sns.amazonaws.com
