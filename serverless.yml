@@ -27,6 +27,17 @@ provider:
         - SNS:Subscribe
         - SNS:Publish
       Resource: 'arn:aws:sns:${self:provider.region}:*:*'
+    - Effect: Allow
+      Action:
+        - 's3:List*'
+        - 's3:Get*'
+        - 's3:Put*'
+      Resource:
+        'Fn::Join':
+          - ''
+          - - 'arn:aws:s3:::'
+            - Ref: ServerlessDeploymentBucket
+
   environment:
     PAGES_TABLE_NAME: '${self:service.name}-${self:provider.stage}-pages'
     JOBS_TABLE_NAME:  '${self:service.name}-${self:provider.stage}-jobs'
