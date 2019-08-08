@@ -11,6 +11,10 @@ provider:
     - Effect: Allow
       Action:
         - dynamodb:DescribeTable
+        - dynamodb:GetRecords
+        - dynamodb:DescribeStream
+        - dynamodb:GetShardIterator
+        - dynamodb:ListStreams
         - dynamodb:Query
         - dynamodb:Scan
         - dynamodb:GetItem
@@ -73,6 +77,8 @@ resources:
         KeySchema:
           - AttributeName: jobId
             KeyType: HASH
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
     runsTable:
       Type: AWS::DynamoDB::Table
       Properties:
@@ -143,3 +149,12 @@ resources:
         Principal: sns.amazonaws.com
         SourceArn:
           Ref: snsPagesToTestDlqTopic
+    postProcessorLambdaEventSouceMapping:
+      Type: AWS::Lambda::EventSourceMapping
+      Properties:
+        EventSourceArn:
+          'Fn::GetAtt': [jobsTable, StreamArn]
+        FunctionName:
+          Ref: PostProcessorLambdaFunction
+        BatchSize: 1
+        StartingPosition: LATEST
